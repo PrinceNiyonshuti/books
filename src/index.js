@@ -11,9 +11,12 @@ import {
 	where,
 	orderBy,
 	serverTimestamp,
-    getDoc,
-    updateDoc
+	getDoc,
+	updateDoc,
 } from "firebase/firestore";
+
+import { getAuth } from "firebase/auth";
+
 const firebaseConfig = {
 	apiKey: "AIzaSyBVxdliMe15NOjWKqc4tJ2i17hVyqaf6bc",
 	authDomain: "books-app-1e89d.firebaseapp.com",
@@ -28,6 +31,7 @@ initializeApp(firebaseConfig);
 
 // init services
 const db = getFirestore();
+const auth = getAuth();
 
 // collection reference
 const colRef = collection(db, "books");
@@ -76,17 +80,15 @@ onSnapshot(docRef, (doc) => {
 	console.log(doc.data(), doc.id);
 });
 
-
 // updating doc
 const updateForm = document.querySelector(".update");
 updateForm.addEventListener("submit", (e) => {
 	e.preventDefault();
 	// get reference to deleted doc
-    const docRef = doc(db, "books", updateForm.id.value);
-    updateDoc(docRef, {
-        title: 'updated title',
-        
-    }).then(() => {
-        updateForm.reset()
-    })
+	const docRef = doc(db, "books", updateForm.id.value);
+	updateDoc(docRef, {
+		title: "updated title",
+	}).then(() => {
+		updateForm.reset();
+	});
 });
