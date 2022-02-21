@@ -1,5 +1,6 @@
 /** @format */
 import { initializeApp } from "firebase/app";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 const firebaseConfig = {
 	apiKey: "AIzaSyBVxdliMe15NOjWKqc4tJ2i17hVyqaf6bc",
 	authDomain: "books-app-1e89d.firebaseapp.com",
@@ -9,5 +10,24 @@ const firebaseConfig = {
 	appId: "1:675296533910:web:4a8a0b687ffef5abf711b7",
 };
 
-// connect to firebase be
+// init to firebase app
 initializeApp(firebaseConfig);
+
+// init services
+const db = getFirestore();
+
+// collection reference
+const colRef = collection(db, "books");
+
+//get collection
+getDocs(colRef)
+	.then((snapshot) => {
+		let books = [];
+		snapshot.docs.forEach((doc) => {
+			books.push({ ...doc.data(), id: doc.id });
+		});
+		console.log(books);
+	})
+	.catch((err) => {
+		console.log(err.message);
+	});
