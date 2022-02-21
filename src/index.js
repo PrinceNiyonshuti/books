@@ -11,7 +11,8 @@ import {
 	where,
 	orderBy,
 	serverTimestamp,
-	getDoc,
+    getDoc,
+    updateDoc
 } from "firebase/firestore";
 const firebaseConfig = {
 	apiKey: "AIzaSyBVxdliMe15NOjWKqc4tJ2i17hVyqaf6bc",
@@ -73,4 +74,19 @@ deleteBookForm.addEventListener("submit", (e) => {
 const docRef = doc(db, "books", "HfFgARa719UNGEGWsjb6");
 onSnapshot(docRef, (doc) => {
 	console.log(doc.data(), doc.id);
+});
+
+
+// updating doc
+const updateForm = document.querySelector(".update");
+updateForm.addEventListener("submit", (e) => {
+	e.preventDefault();
+	// get reference to deleted doc
+    const docRef = doc(db, "books", updateForm.id.value);
+    updateDoc(docRef, {
+        title: 'updated title',
+        
+    }).then(() => {
+        updateForm.reset()
+    })
 });
