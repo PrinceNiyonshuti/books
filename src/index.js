@@ -1,6 +1,13 @@
 /** @format */
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
+import {
+	getFirestore,
+	collection,
+	getDocs,
+	addDoc,
+	deleteDoc,
+	doc,
+} from "firebase/firestore";
 const firebaseConfig = {
 	apiKey: "AIzaSyBVxdliMe15NOjWKqc4tJ2i17hVyqaf6bc",
 	authDomain: "books-app-1e89d.firebaseapp.com",
@@ -49,4 +56,10 @@ addBookForm.addEventListener("submit", (e) => {
 const deleteBookForm = document.querySelector(".delete");
 deleteBookForm.addEventListener("submit", (e) => {
 	e.preventDefault();
+
+	// get reference to deleted doc
+	const docRef = doc(db, "books", deleteBookForm.id.value);
+	deleteDoc(docRef).then(() => {
+		deleteBookForm.reset();
+	});
 });
