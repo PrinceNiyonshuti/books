@@ -11,6 +11,7 @@ import {
 	where,
 	orderBy,
 	serverTimestamp,
+	getDoc,
 } from "firebase/firestore";
 const firebaseConfig = {
 	apiKey: "AIzaSyBVxdliMe15NOjWKqc4tJ2i17hVyqaf6bc",
@@ -66,4 +67,10 @@ deleteBookForm.addEventListener("submit", (e) => {
 	deleteDoc(docRef).then(() => {
 		deleteBookForm.reset();
 	});
+});
+
+// get single
+const docRef = doc(db, "books", "HfFgARa719UNGEGWsjb6");
+onSnapshot(docRef, (doc) => {
+	console.log(doc.data(), doc.id);
 });
