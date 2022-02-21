@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build":"webpack"
+    "build": "webpack"
   },
   "keywords": [],
   "author": "",
@@ -13,5 +13,8 @@
   "devDependencies": {
     "webpack": "^5.69.1",
     "webpack-cli": "^4.9.2"
+  },
+  "dependencies": {
+    "firebase": "^9.6.7"
   }
 }
