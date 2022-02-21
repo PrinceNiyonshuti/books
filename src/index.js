@@ -15,7 +15,12 @@ import {
 	updateDoc,
 } from "firebase/firestore";
 
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+	getAuth,
+	createUserWithEmailAndPassword,
+	signOut,
+	signInWithEmailAndPassword,
+} from "firebase/auth";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyBVxdliMe15NOjWKqc4tJ2i17hVyqaf6bc",
@@ -108,4 +113,33 @@ signupForm.addEventListener("submit", (e) => {
 		.catch((err) => {
 			console.log(err.message);
 		});
+});
+
+// logout with email and password
+const logoutButton = document.querySelector(".logout");
+logoutButton.addEventListener("click", () => {
+	signOut(auth)
+		.then(() => {
+			console.log("user signed out");
+		})
+		.catch((err) => {
+			console.log(err.message);
+		});
+});
+
+// sign in with email and password
+const loginForm = document.querySelector(".login");
+loginForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const email = loginForm.email.value;
+    const password = loginForm.password.value;
+    signInWithEmailAndPassword(auth, email, password)
+			.then((cred) => {
+				console.log("user logged in ", cred.user);
+				loginForm.reset();
+			})
+			.catch((err) => {
+				console.log(err.message);
+			});
 });
